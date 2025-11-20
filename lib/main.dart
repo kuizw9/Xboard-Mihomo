@@ -103,9 +103,8 @@ Future<void> _initializeXBoardServices() async {
     await XBoardConfig.initialize(settings: configSettings);
     print('[Main] XBoard配置模块初始化成功');
     
-    // 3. 获取SDK配置和域名服务配置
+    // 3. 获取SDK配置
     final sdkConfig = await ConfigFileLoaderHelper.getSdkConfig();
-    final domainConfig = await ConfigFileLoaderHelper.getDomainServiceConfig();
     
     // 4. 初始化XBoard SDK（使用域名竞速）
     await XBoardSDK.initialize(

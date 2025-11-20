@@ -186,15 +186,7 @@ extension ConfigFileLoaderHelper on ConfigFileLoader {
     }
   }
   
-  /// 获取域名服务配置
-  static Future<Map<String, dynamic>> getDomainServiceConfig() async {
-    try {
-      final config = await ConfigFileLoader.loadExtendedConfig();
-      return config['domain_service'] as Map<String, dynamic>? ?? {};
-    } catch (e) {
-      return {};
-    }
-  }
+
   
   /// 获取 SDK 配置
   static Future<Map<String, dynamic>> getSdkConfig() async {
@@ -229,10 +221,11 @@ extension ConfigFileLoaderHelper on ConfigFileLoader {
   /// 获取解密密钥
   static Future<String> getDecryptKey() async {
     try {
-      final security = await getSecurityConfig();
-      return security['decrypt_key'] as String? ?? 'xboard_default_key_2024';
+      final config = await ConfigFileLoader.loadExtendedConfig();
+      final subscription = config['subscription'] as Map<String, dynamic>? ?? {};
+      return subscription['decrypt_key'] as String? ?? '';
     } catch (e) {
-      return 'xboard_default_key_2024';
+      return '';
     }
   }
   
@@ -249,12 +242,11 @@ extension ConfigFileLoaderHelper on ConfigFileLoader {
   
   /// 获取证书配置
   static Future<Map<String, dynamic>> getCertificateConfig() async {
-    try {
-      final security = await getSecurityConfig();
-      return security['certificate'] as Map<String, dynamic>? ?? {};
-    } catch (e) {
-      return {};
-    }
+    // 硬编码证书配置，不再从配置文件读取
+    return {
+      'path': 'assets/cer/client-cert.crt',
+      'enabled': true,
+    };
   }
   
   /// 获取应用标题

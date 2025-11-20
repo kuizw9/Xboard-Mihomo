@@ -62,3 +62,6 @@ app.*.map.json
 /xboard.config.yaml
 /xboard.config.yml
 assets/config/xboard.config.yaml
+
+# 忽略证书文件
+assets/cer/
